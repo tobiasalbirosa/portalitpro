@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body style="background-image:url('image'); background-position-x:55%;background-position-y:0%;background-size: 300%; background-repeat: no-repeat;">
+<h1 style="padding:10%;text-shadow: .5em .5em .5em #000000;color: white; font-family: Futura, Geneva, Tahoma, sans-serif;">
+        Ha ingresado 
+        a la red de:         Comercio
+<h1 style="padding:10%;text-shadow: .5em .5em .5em #000000;color: white;font-family: Futura, Geneva, Tahoma, sans-serif, Medium;"">
+        ¡Comparte tu plato en las redes sociales,
+        etiqueta a @portalit y participa de diferentes sorteos!
+</h1>
+<a id="social" href="https://www.facebook.com/" class="fa fa-facebook"></a>
+<a id="social" href="https://twitter.com/intent/tweet?button_hashtag=Portalit&ref_src=twsrc%5Etfw" class="fa fa-twitter" data-show-count="false"></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<a id="social" href="https://www.instagram.com/" class="fa fa-instagram"></a>
+
+
+<br>
+</h1>
+<br>
+<video style="z-index:-10;display:none;width:100%; position: fixed; bottom:0%;left:0%;" id="video" controls="" loop="" autoplay="" muted="muted"> 
+		<source src="http://192.168.0.144:3000/video" type="video/webm"> 
+        </video>
+   
+<canvas id="canvas" style="z-index:-10;width:100%; position: fixed; bottom:0%;left:0%;">
+
+</canvas>
+      <script>
+
+
+var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+var isAndroid = /(android)/i.test(navigator.userAgent);
+var isIphone = /(iphone)/i.test(navigator.userAgent);
+var verVideo = false;
+var verCanvas = true;
+
+if (isAndroid) {
+console.log("isAndroid");
+
+if(!isMac){
+        verCanvas = true;
+        verVideo = false;
+}
+}
+if (isIphone) {
+console.log("isIphone");
+}
+if (isMac) {
+console.log("isMac");
+}
+
+if(isMac){
+        verVideo = true;
+        verCanvas = false;
+        document.getElementById("video").style.display = "block";
+}
+
+        var networkInformation = navigator.connection;
+        var MozNetworkInformation = window.navigator;
+        
+        
+console.log(networkInformation);
+console.log(MozNetworkInformation.connection);
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+if(verVideo == false){
+    
+// set canvas size = video size when known
+video.addEventListener('loadedmetadata', function() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  if(document.body.clientWidth 
+ > 500){
+  }
+});
+video.play();
+video.addEventListener('play', function() {
+  var $this = this; //cache
+  (function loop() {
+    if (!$this.paused && !$this.ended) {
+      ctx.drawImage($this, 0, 0);
+      setTimeout(loop, 1000 / 60); // drawing at 30fps
+    }
+  })();
+}, 0);
+
+}
+
+
+var x = window.matchMedia("(max-width: 100px)");
+function myFunction(x) {
+  if (x.matches) { // If media query matches
+        document.getElementById("canvas").style.display = "none";
+  } else {
+    document.getElementById("canvas").style.display = "fixed";
+  }
+}
+myFunction(x) // Call listener function at run time
+x.addListener(myFunction) // Attach listener function on state changes
+        </script>
+</body>
+<style>
+#social{
+margin:5%;
+text-decoration: none;
+color:white;
+font-size: 5em;
+display: inline;
+margin-left:15%;
+
+}
+
+@media screen and (orientation:portrait) {
+
+}
+</style>
+</html>
